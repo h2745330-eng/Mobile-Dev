@@ -9,7 +9,7 @@ void main(){
       body: Column(
         children: [
           SizedBox(height: 40,),
-          HobbyCard(hobbyTitle: "Travelling", hobbyIcon: Icons.travel_explore, hobbyColor: Colors.green),
+          HobbyCard(hobbyTitle: "Travelling", hobbyIcon: Icons.travel_explore, hobbyColor: Colors.green,),
           HobbyCard(hobbyTitle: "Skating", hobbyIcon: Icons.skateboarding, hobbyColor: Colors.blueGrey),
         ],
       ),
@@ -17,7 +17,7 @@ void main(){
   ));
 }
 class HobbyCard extends StatelessWidget {
-  const HobbyCard({super.key, required this.hobbyTitle, required this.hobbyIcon, required this.hobbyColor});
+  const HobbyCard({super.key, required this.hobbyTitle, required this.hobbyIcon, this.hobbyColor=Colors.blue});
   final String hobbyTitle;
   final IconData hobbyIcon;
   final Color hobbyColor;
