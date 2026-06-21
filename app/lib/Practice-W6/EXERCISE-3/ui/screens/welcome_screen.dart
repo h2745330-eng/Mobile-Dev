@@ -1,46 +1,39 @@
-import 'package:app/Practice-W6/EXERCISE-3/ui/screens/temperature_screen.dart';
 import 'package:flutter/material.dart';
+
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+  const WelcomeScreen({super.key, required this.onTap});
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Icon(
-            Icons.thermostat_outlined,
-            size: 120,
-            color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Icon(
+              Icons.thermostat_outlined,
+              size: 120,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const Text(
-          "Welcome !",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 50,
+          const Text(
+            "Welcome !",
+            style: TextStyle(color: Colors.white, fontSize: 50),
           ),
-        ),
-        const SizedBox(height: 15),
-        Builder(
-          builder: (BuildContext context){
-            return OutlinedButton(
-              onPressed: (){
-                TemperatureScreen();
-              },
-              style: OutlinedButton.styleFrom(
-                  side: const BorderSide(width: 1.0, color: Colors.white)),
-              child: const Text('Start to convert',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  )),
-            );
-          },
-        ),
-      ],
-    ));
+          const SizedBox(height: 15),
+          OutlinedButton(
+            onPressed: onTap,
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(width: 1.0, color: Colors.white),
+            ),
+            child: const Text(
+              'Start to convert',
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            )
+          ),
+        ],
+      ),
+    );
   }
 }

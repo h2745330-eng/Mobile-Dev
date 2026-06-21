@@ -44,6 +44,7 @@ class ProfileApp extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+              
               ...profileData.tiles.map((item) => ProfileTile(tileData: item)),
             ],
           ),

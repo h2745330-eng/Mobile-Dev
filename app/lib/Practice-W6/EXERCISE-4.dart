@@ -10,8 +10,11 @@ void main() => runApp(
         backgroundColor: appColor,
         title: const Text("Favorite Jokes"),
       ),
-      body: const Column(
-        children: [FavoriteCard(), FavoriteCard(), FavoriteCard()],
+      body: ListView.builder(
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return FavoriteCard();
+        },
       ),
     ),
   ),

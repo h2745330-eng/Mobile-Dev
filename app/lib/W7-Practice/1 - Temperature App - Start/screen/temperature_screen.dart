@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
 
-class TemperatureScreen extends StatelessWidget {
-  TemperatureScreen({super.key, required this.onTap});
-  final VoidCallback onTap;
+class TemperatureScreen extends StatefulWidget {
+  const TemperatureScreen({super.key});
+
+  @override
+  State<TemperatureScreen> createState() => _TemperatureScreenState();
+}
+
+class _TemperatureScreenState extends State<TemperatureScreen> {
+  double? currentValue;
+  late double value;
+  void onChange(String textvalue) {
+    print(textvalue);
+    setState(() {
+      value = double.tryParse(textvalue)!;
+      currentValue = (value * 9 / 5) + 32;
+      print(value);
+    });
+  }
+
+  String get ToText {
+    String result = "$value";
+    return result;
+  }
+
+  final BoxDecoration textDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(12),
+  );
+
   final InputDecoration inputDecoration = InputDecoration(
     enabledBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -11,6 +37,7 @@ class TemperatureScreen extends StatelessWidget {
     hintText: 'Enter a temperature',
     hintStyle: const TextStyle(color: Colors.white),
   );
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,6 +62,7 @@ class TemperatureScreen extends StatelessWidget {
             const Text("Temperature in Degrees:"),
             const SizedBox(height: 10),
             TextField(
+              onChanged: onChange,
               decoration: inputDecoration,
               style: const TextStyle(color: Colors.white),
             ),
@@ -43,23 +71,9 @@ class TemperatureScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Text('test'),
+              decoration: textDecoration,
+              child: Text(ToText),
             ),
-            const SizedBox(height: 10,),
-            OutlinedButton( 
-              onPressed: onTap,
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(width: 1.0, color: Colors.white),
-              ),
-              child: const Text(
-                'Bye',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-            )
           ],
         ),
       ),
