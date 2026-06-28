@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import '../../models/expense.dart';
 
 class ExpenseForm extends StatefulWidget {
@@ -13,13 +11,18 @@ class ExpenseForm extends StatefulWidget {
 class _ExpenseFormState extends State<ExpenseForm> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
-
+  String? message;
   void onCheckPressed() {
     String title = _titleController.text;
-    double amount = double.parse(_amountController.text);
-
+    double? amount = double.tryParse(_amountController.text);
+    setState(() {
+      if (amount == null){
+        message = "Please enter a number";
+      }
+      return;
+    });
     Expense newExpense = Expense(
-      amount: amount,
+      amount: amount!,
       title: title,
       category: Category.food,
       date: DateTime.now(),
@@ -41,40 +44,66 @@ class _ExpenseFormState extends State<ExpenseForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          TextField(
-            controller: _titleController,
-            maxLength: 50,
-            decoration: const InputDecoration(label: Text('Title')),
-          ),
-
-          SizedBox(height: 20),
-          TextField(
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            controller: _amountController,
-            maxLength: 50,
-            decoration: InputDecoration(
-              prefix: Text("\$"),
-              label: const Text('Amount'),
-            ),
-          ),
-
-          Spacer(),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Add a new item", style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 51, 50, 50),
+        foregroundColor: Colors.white,
+      ),
+      body: Container(
+        color: const Color.fromARGB(255, 74, 73, 73),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(  
             children: [
-              ElevatedButton(onPressed: onCancelPressed, child: Text("Cancel")),
-              ElevatedButton(onPressed: onCheckPressed, child: Text("Save")),
+              TextField(
+                controller: _titleController,
+                maxLength: 50,
+                decoration: const InputDecoration(
+                  label: Text('Title', style: TextStyle(color: Colors.grey)),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: _amountController,
+                maxLength: 50,
+                decoration: InputDecoration(
+                  prefix: Text("\$"),
+                  label: const Text(
+                    'Amount',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  errorText: message 
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: onCancelPressed,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 63, 62, 62),
+                    ),
+                    child: Text("Cancel", style: TextStyle(color: Colors.lightBlue),),
+                  ),
+                  SizedBox(width: 10,),
+                  ElevatedButton(
+                    onPressed: onCheckPressed,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 63, 62, 62)
+                    ),
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.lightBlueAccent),
+                    )
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

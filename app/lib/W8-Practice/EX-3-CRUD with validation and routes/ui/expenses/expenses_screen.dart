@@ -17,10 +17,9 @@ class ExpensesScreen extends StatefulWidget {
 class _ExpensesScreenState extends State<ExpensesScreen> {
   
   void onAddPressed(BuildContext context) async {
-    Expense? newExpense = await showModalBottomSheet<Expense>(
-      isScrollControlled: true,
-      builder: (context) => ExpenseForm(),
-      context: context,
+    Expense? newExpense = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ExpenseForm()),
     );
 
     if (newExpense != null) {
