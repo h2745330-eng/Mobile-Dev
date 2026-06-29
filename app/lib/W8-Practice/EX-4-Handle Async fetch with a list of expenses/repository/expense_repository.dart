@@ -1,12 +1,12 @@
 import '../models/expense.dart';
 
 class ExpenseRepository {
-  Expense singelExpense = Expense(amount: 45, title: "fake");
+  List<Expense> expenses = [Expense(amount: 45, title: "Flutter Course"), Expense(amount: 45, title: "fake"), Expense(amount: 45, title: "fake"),];
 
-  Future<Expense> fetchExpense() {
+  Future<List<Expense>> fetchExpense() {
     // Simulate 5 seconds before returnning the success fetch
     return Future.delayed(Duration(seconds: 5), () {
-      return singelExpense;
+      return expenses;
     });
   }
 }

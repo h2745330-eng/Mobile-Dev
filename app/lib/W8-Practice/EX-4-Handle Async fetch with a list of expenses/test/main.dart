@@ -2,10 +2,10 @@ import '../models/expense.dart';
 import '../repository/expense_repository.dart';
 
 void main() async {
-
-  
   print("Fetching expense");
 
-  Expense expense = await expenseRepository.fetchExpense();
-  print("  expense fetched : ${expense.title}");
+  List<Expense> expense = await expenseRepository.fetchExpense();
+  for (int i = 0; i < expense.length; i++) {
+    print("  expense fetched : ${expense[i].title}");
+  }
 }
